@@ -1,5 +1,7 @@
 const Discord = require('./src/client/Client');
-const client = new Discord.Client();
+const client = new Discord.Client({
+    Intents: ['GUILDS']
+});
 require('dotenv').config();
 
 client.on('ready', () => {

@@ -1,8 +1,8 @@
 const os = require('os');
 
 exports.Constants = {
-    GATEWAY: `wss://gateway.discord.gg/?v=7&encoding=json`,
-    API: `https://discord.com/api/v7`
+    GATEWAY: `wss://gateway.discord.gg/?v=8&encoding=json`,
+    API: `https://discord.com/api/v8`
 }
 
 exports.Opcodes = {
@@ -35,4 +35,8 @@ exports.Identify = {
             "$device": "jscord"
         }
     }
+}
+
+exports.Events = {
+    DEBUG: 'debug',
 }
