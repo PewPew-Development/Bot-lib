@@ -12,4 +12,13 @@ exports.ShardmanErrors = {
     MUST_BE_MORETHANONE: '[INVALID_AMOUNT] The number of shards to spawn must be higher than zero or auto!',
     MUST_BE_A_INTERGER: '[INVALID_AMOUNT] The number of shards to spawn must an interger!',
     INVALID_MODE: '[INVALID_MODE] The mode must either be \'process\' or \'worker\'',
+    SHARDS_ALREADY_SPAWNED: '[ERROR] The amount of shards specified are all already spawned!',
+    SHARDSLIST_ARRAY: '[INVALID_ARRAY] The shardlist must be an array or auto',
+    INVALID_SHARD_ID: '[INVALID_ID] There must be atleast one ShardId in the Shardlists',
+    NON_POSITIVE_INTERGER: '[INVALID_INTERGER] The ShardId in the list must be an interger!',
+}
+
+exports.Sharderrors = {
+    PROCESS_EXISTS: 'The sharding process already exists!',
+    WORKER_EXISTS: 'The sharding worker already exists!',
 }

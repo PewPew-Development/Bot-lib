@@ -1,4 +1,4 @@
-const Discord = require('./src/client/Client');
+/*const Discord = require('./src/client/Client');
 const client = new Discord.Client({
     Intents: ['GUILDS']
 });
@@ -13,4 +13,26 @@ client.on('debug', (data) => {
 })
 
 
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN);*/
+require('dotenv').config();
+const Discord = require('./src/sharding/ShardingManager');
+const Manager = new Discord.ShardingManger('./bot.js', {
+    token: process.env.TOKEN,
+    totalshards: 2,
+    shardstospawn: 2,
+})
+
+Manager.on('shardCreate', (shard) => {
+    console.log(`New shard being spawned: Shard: ${shard.id}`);
+
+    shard.on('spawn', () => {
+        console.log(`Shard ${shard.id} was spawned`)
+    })
+
+    shard.on('ready', () => {
+        console.log(`Shard ${shard.id} is ready!`)
+    })
+})
+
+
+Manager.spawn(Manager.shardstospawn);

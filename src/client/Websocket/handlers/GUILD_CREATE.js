@@ -1,3 +1,3 @@
-module.exports = async (client, { d: data }) => {
-    console.log('Guild_Create')
+module.exports = async (client, { d: data }, shard) => {
+    console.log('Guild_Create', shard.id)
 }

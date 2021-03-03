@@ -1,6 +1,7 @@
 exports.ClientOptions = {
     Intents: [],
     shards: 'auto',
+    shardCount: 1,
 }
 
 exports.Intents = {
@@ -25,8 +26,14 @@ exports.ShardManagerOptions = {
     token: process.env.BOT_TOKEN,
     totalshards: 'auto',
     shardstospawn: 'auto',
+    shardList: 'auto',
     mode: 'process',
     autorespawn: false,
-    shardArgs: [],
+    shardArgs: 'auto',
     execArgv: [],
+}
+
+exports.Tiimanager = {
+    client: null,
+    token: '',
 }

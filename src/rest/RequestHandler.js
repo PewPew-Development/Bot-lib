@@ -12,7 +12,6 @@ class RequestHandler extends EventEmitter {
     }
 
     async gatewaybot(token = String) {
-        console.log(this.client)
         headers.Authorization = `Bot ${this.client.token}`
         const respomse = await fetch(`${Constants.API}${Endpoints.gatewaybot}`, {
             method: 'GET',

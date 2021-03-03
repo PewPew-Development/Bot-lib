@@ -1,41 +1,42 @@
 class ClientUser {
     constructor(client, data) {
-        this.id = data.user.id,
+        this.id = data.id,
         this.flags = data.flags || 0
 
+        this._typing = new Map();
 
         this._set(data)
     }
     _set(data) {
-        if ('username' in data.user) {
+        if ('username' in data) {
             console.log('e');
-            this.username = data.user.username
+            this.username = data.username
         } else if (typeof this.username !== 'string') {
             this.username = null;
         }
 
-        if ('bot' in data.user || typeof this.bot !== 'boolean') {
-            this.bot = Boolean(data.user.bot);
+        if ('bot' in data || typeof this.bot !== 'boolean') {
+            this.bot = Boolean(data.bot);
         }
 
-        if ('discriminator' in data.user) {
-            this.discriminator = data.user.discriminator;
+        if ('discriminator' in data) {
+            this.discriminator = data.discriminator;
         } else if (typeof this.discriminator !== 'string') {
             this.discriminator = null;
         }
 
-        if ('avatar' in data.user) {
-            this.avatar = data.user.avatar;
+        if ('avatar' in data) {
+            this.avatar = data.avatar;
         } else if (typeof this.avatar !== 'string') {
             this.avatar = null;
         }
 
-        if ('system' in data.user) {
-            this.system = Boolean(data.user.system);
+        if ('system' in data) {
+            this.system = Boolean(data.system);
         }
 
-        if ('public_flags' in data.user) {
-            this.flags = data.user.public_flags
+        if ('public_flags' in data) {
+            this.flags = data.public_flags
         }
     }
 
