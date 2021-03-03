@@ -40,3 +40,6 @@ exports.Identify = {
 exports.Events = {
     DEBUG: 'debug',
 }
+exports.ShardEvents = {
+    
+}

@@ -20,3 +20,13 @@ exports.Intents = {
     DIRECT_MESSAGE_REACTIONS: (1 << 13),
     DIRECT_MESSAGE_TYPING: (1 << 14),
 }
+
+exports.ShardManagerOptions = {
+    token: process.env.BOT_TOKEN,
+    totalshards: 'auto',
+    shardstospawn: 'auto',
+    mode: 'process',
+    autorespawn: false,
+    shardArgs: [],
+    execArgv: [],
+}
