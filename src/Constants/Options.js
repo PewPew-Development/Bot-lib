@@ -1,7 +1,5 @@
 exports.ClientOptions = {
     Intents: [],
-    shards: 'auto',
-    shardCount: 1,
 }
 
 exports.Intents = {

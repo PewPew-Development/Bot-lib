@@ -179,3 +179,7 @@ function keyMirror(arr) {
     for (const value of arr) tmp[value] = value;
     return tmp;
 }
+
+exports.Errors = {
+    INVALID_INTENT: `The intent ${int} is an invalid intent!`
+}
