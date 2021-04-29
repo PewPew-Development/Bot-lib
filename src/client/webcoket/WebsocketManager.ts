@@ -1,36 +1,41 @@
 import Websocket from "ws"
 import { EventEmitter } from "events"
 import { BotClient } from "../Client"
-import { EVENTS, WebsocketEvent } from "../../Utils/Constants"
+import { Events, WebsocketEvent, WSstatus } from "../../Utils/Constants"
+import { delayFor } from "../../Utils/util"
 
 export class WebSocketManager extends EventEmitter {
     ws: Websocket
-
+    private expectedGuilds: Set<string>
     heartbeatInterval: any;
     lastSequence: number | null;
     seq: number;
-    ping: number;
+    status: WSstatus
+    ping: number | null;
     receivedAck: boolean;
     lastPingTimestamp: any
     lastHeartbeatAcked: boolean;
-    session: string;
+    sessionID: string | null;
 
     client: BotClient;
 
     constructor(client: BotClient) {
         super();
 
-        Object.defineProperty(this, 'client', { value: client });
+        //Object.defineProperty(this, 'client', { value: client });
 
-
+        this.sessionID = null
+        this.client = client
+        this.status = WSstatus.IDLE
         this.heartbeatInterval = null;
         this.lastHeartbeatAcked = false
-
+        this.ping = -1
+        this.receivedAck = false
         this.seq = 0;
         this.lastSequence = null;
     }
     debug(message: string, shard: number = this.client.shard.id) {
-        this.client.emit(EVENTS.DEBUG, `[Ws => ${shard ? `Shard #${shard}` : 'Manager'}] ${message}`)
+        this.client.emit(Events.DEBUG, `[Ws => ${shard ? `Shard #${shard}` : 'Manager'}] ${message}`)
     }
 
     async connect(token?: string) {
@@ -58,17 +63,21 @@ export class WebSocketManager extends EventEmitter {
             case WebsocketEvent.Invalid_Session:
                 this.Identify(this.client.options.token)
                 break;
-            case WebsocketEvent.DISPATCH:
-                this.debug(`[Event] ${payload.t}`)
-                break;
             case WebsocketEvent.Heartbeat_ACK:
                 this.ackHeartbeat()
                 break;
+            default:
+                this.handleEvent(payload)
+                if (payload.t === 'GUILD_CREATE') {
+                    this.expectedGuilds.delete(payload.d.id)
+                    this.checkReady()
+                }
         }
 
         switch (payload.t) {
             case 'READY':
-                console.log(payload)
+                this.status = WSstatus.WAITING_FOR_GUILDS
+                this.expectedGuilds = new Set(payload.d.guilds.map(d => d.id))
                 this.ws.send(JSON.stringify({
                     "op": 3,
                     "d": {
@@ -99,6 +108,16 @@ export class WebSocketManager extends EventEmitter {
         this.ping = latency;
     }
 
+    async handleEvent(payload: any) {
+        try {
+            const { default: module } = await import(`./handlers/${payload.t}`)
+            module(this.client, payload, { id: Number(this.client.shard.id) })
+        } catch (e) {
+            console.log(e)
+            this.debug(`[Event Not Found] ${payload.t} was not found in the handlers file!`)
+        }
+    }
+
     async Identify(token?: string, intent: number = 513) {
         if (this.ws.readyState != Websocket.OPEN) throw new Error(`Tried sending Identify when websocket wasnt open!`)
         console.log(this.client.shard.id, this.client.shard.shardCount)
@@ -116,6 +135,21 @@ export class WebSocketManager extends EventEmitter {
             }
         }))
     }
+
+    async checkReady() {
+        if (this.status == WSstatus.READY) return;
+        if (this.expectedGuilds.size != 0) {
+            // wait for unexpected guilds or return unexpected guilds
+        }
+
+        await delayFor(2500)
+
+        this.debug(`Shard Recieved all its guilds, marking it as ready!`)
+        this.status = WSstatus.READY
+        this.client.ready = true
+        this.client.emit(Events.READY)
+    }
+
     setHeartbeatTimer(time: number) {
         console.log(time)
         if (time === -1) {

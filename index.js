@@ -9,7 +9,8 @@ m.on('shardCreate', (s) => {
     s.on('spawn', (p) => {
         console.log(`Shard: #${s.id} was spawned`)
     })
+    s.on('ready', () => console.log(`Shard #${s.id} is now ready!`))
 })
 
-m.spawn()
+m.spawn().catch((e) => console.log(e))
 //client.on('debug', (d) => console.log(d))
