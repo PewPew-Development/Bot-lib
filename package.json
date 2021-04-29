@@ -2,14 +2,14 @@
   "name": "jscord",
   "version": "1.0.0",
   "description": "A simple and easy to use Nodejs Discord library!",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "DRxckzyz",
   "license": "ISC",
-  "typings": "dist/typings/index.d.ts",
+  "typings": "typings/index.d.ts",
   "dependencies": {
     "deepmerge": "^4.2.2",
     "dotenv": "^8.2.0",
