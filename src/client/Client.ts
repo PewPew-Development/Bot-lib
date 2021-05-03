@@ -9,7 +9,7 @@ export class BotClient extends BaseBotClient {
     public readonly options: BotClientOptions
     public user: ClientUser | null
     public ws: WebSocketManager
-    public readonly env: any
+    private env: any
     public shard: any
     public guilds: GuildManager
 
@@ -17,7 +17,7 @@ export class BotClient extends BaseBotClient {
         super();
 
         this.env = process.env
-        this.shard = new ShardlientUtil(this)
+        this.shard = this.env.SHARDING_MANAGER ? new ShardlientUtil(this, this.env) : null
         this.options = options
         this.ws = new WebSocketManager(this)
         this.user = null

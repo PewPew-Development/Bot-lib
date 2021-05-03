@@ -110,4 +110,6 @@ export class BaseBotClient extends EventEmitter {
 
 export interface BotClientOptions {
     token?: string;
+    presence?: object;
+    reconnect?: boolean;
 }

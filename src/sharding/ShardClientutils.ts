@@ -6,11 +6,11 @@ export class ShardlientUtil {
     public id: number
     public shardCount: number
 
-    constructor(client: BotClient) {
+    constructor(client: BotClient, env: any) {
 
         this.client = client
-        this.id = client.env.SHARD_ID
-        this.shardCount = client.env.SHARD_COUNT
+        this.id = env.SHARD_ID
+        this.shardCount = env.SHARD_COUNT
 
         process.on('message', this._handleMessage.bind(this))
         client.on(Events.READY, () => {
@@ -19,5 +19,8 @@ export class ShardlientUtil {
     }
     private async _handleMessage(data: any) {
         console.log(data)
+    }
+    async destroy() {
+        process.send('ee')
     }
 }

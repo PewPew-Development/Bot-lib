@@ -16,10 +16,14 @@ export enum WSstatus {
     WAITING_FOR_GUILDS = 0,
     READY = 1,
     IDLE = 2,
+    CLOSED = 3,
+    DISCONNECTED = 4,
+    RECONNECTING = 5,
 }
 
 export enum Events {
     READY = 'ready',
+    DISCONNECTED = 'disconnected',
     RESUMED = 'resume',
     RECONNECT = 'recoonect',
     INVALID_SESSION = 'InvalidSession',
@@ -70,7 +74,7 @@ export enum OPCODES {
 }
 
 export enum CLOSEDCODES {
-    NOTOKEN = 4004,
+    Authentication_failed = 4004,
 }
 
 export enum Endpoints {

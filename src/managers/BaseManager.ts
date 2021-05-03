@@ -1,6 +1,10 @@
 import { BotClient } from "../client/Client"
 import { Collection } from "../Utils/Collection"
 
+/**
+ * @name BaseManager
+ * @description The Base for Structure managers
+ */
 export class BaseManager {
     public client: BotClient
     public cache: Map<string, any>
