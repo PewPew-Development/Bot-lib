@@ -1,8 +1,8 @@
-import { BotClient } from "../client/Client";
+import { Client } from "../client/Client";
 
 export class Base {
-    public client: BotClient
-    constructor(client: BotClient) {
+    public client: Client
+    constructor(client: Client) {
         /**
          * The client that instantiated this
          * @name Base#client

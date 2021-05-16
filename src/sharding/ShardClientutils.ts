@@ -1,12 +1,12 @@
-import { BotClient } from "../client/Client";
+import { Client } from "../client/Client";
 import { Events } from "../Utils/Constants";
 
 export class ShardlientUtil {
-    public client: BotClient
+    public client: Client
     public id: number
     public shardCount: number
 
-    constructor(client: BotClient, env: any) {
+    constructor(client: Client, env: any) {
 
         this.client = client
         this.id = env.SHARD_ID

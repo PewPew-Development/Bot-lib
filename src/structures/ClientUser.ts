@@ -1,4 +1,4 @@
-import { BotClient } from "../client/Client";
+import { Client } from "../client/Client";
 
 export class ClientUser {
     public id: string;
@@ -10,7 +10,7 @@ export class ClientUser {
     public flags: number;
     public MfaEnabled: boolean;
 
-    constructor(client: BotClient, data: any) {
+    constructor(client: Client, data: any) {
         this.id = data.user.id
         this.username = data.user.username
         this.tag = `${this.username}#${data.user.discriminator}`

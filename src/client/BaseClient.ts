@@ -1,11 +1,11 @@
 import { EventEmitter } from "events"
 
-export class BaseBotClient extends EventEmitter {
+export class BaseClient extends EventEmitter {
     public _timeouts: Set<any>
     public _intervals: Set<any>
     public _immediates: Set<any>
 
-    constructor(options: BotClientOptions = {}) {
+    constructor(options: ClientOptions = {}) {
         super();
 
         this._timeouts = new Set()
@@ -108,8 +108,17 @@ export class BaseBotClient extends EventEmitter {
     }
 }
 
-export interface BotClientOptions {
+export interface ClientOptions {
     token?: string;
     presence?: object;
     reconnect?: boolean;
+    cachedGuilds?: boolean;
+    intents?: Array<string> | string[]
+}
+
+export const DefaultClientOptions: ClientOptions = {
+    token: process.env.DISCORD_BOT_TOKEN || undefined,
+    reconnect: false,
+    cachedGuilds: false,
+    intents: []
 }

@@ -1,4 +1,4 @@
-import { BotClient } from "../client/Client";
+import { Client } from "../client/Client";
 import { Base } from "./BAse";
 
 export class Guild extends Base {
@@ -26,7 +26,7 @@ export class Guild extends Base {
     public explicitContentFilter: number;
     public MaxPresences: number;
     public MaxMembers: number;
-    public client: BotClient
+    public client: Client
     public MaxVideoChannelUsers: number;
     public vanityUrlCode: string;
     public premiumTier: number;
@@ -49,7 +49,7 @@ export class Guild extends Base {
     public vanityURLUses: number | null;
 
 
-    constructor(client: BotClient, data: any) {
+    constructor(client: Client, data: any) {
         super(client);
 
         this.client = client

@@ -1,6 +1,6 @@
 import Websocket from "ws"
 import { EventEmitter } from "events"
-import { BotClient } from "../Client"
+import { Client } from "../Client"
 import { Events, Payload, WebsocketEvent, WSstatus } from "../../Utils/Constants"
 import { delayFor } from "../../Utils/util"
 
@@ -19,9 +19,9 @@ export class WebSocketManager extends EventEmitter {
     private lastHeartbeatAcked: boolean;
     private sessionID: string | null;
     private ratelimit: any
-    client: BotClient;
+    client: Client;
 
-    constructor(client: BotClient) {
+    constructor(client: Client) {
         super();
 
         //Object.defineProperty(this, 'client', { value: client });

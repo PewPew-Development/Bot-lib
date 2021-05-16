@@ -1,4 +1,4 @@
-import { BotClient } from "../client/Client"
+import { Client } from "../client/Client"
 import { Collection } from "../Utils/Collection"
 
 /**
@@ -6,11 +6,11 @@ import { Collection } from "../Utils/Collection"
  * @description The Base for Structure managers
  */
 export class BaseManager {
-    public client: BotClient
+    public client: Client
     public cache: Map<string, any>
     private holds: any
 
-    constructor(client: BotClient, holds: any) {
+    constructor(client: Client, holds: any) {
 
         this.client = client
         this.cache = new Map()

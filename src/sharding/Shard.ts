@@ -25,7 +25,7 @@ export class Shard extends EventEmitter {
             SHARD_ID: `${this.id}`,
             SHARD_COUNT: `${this.manager.options.shardCount}`,
             SHARDING_MANAGER: 'active',
-            DISCORD_TOKEN: this.manager.options.token
+            DISCORD_BOT_TOKEN: this.manager.options.token
         }
         this.process = child_process.fork(this.manager.file, { env })
             .on('message', this._handleMessage.bind(this))

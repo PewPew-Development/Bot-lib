@@ -1,4 +1,4 @@
-import { BotClient } from "../client/Client";
+import { Client } from "../client/Client";
 import { Guild } from "../structures/Guild";
 import { BaseManager } from "./BaseManager";
 
@@ -9,7 +9,7 @@ import { BaseManager } from "./BaseManager";
  * @argument {BotClient}
  */
 export class GuildManager extends BaseManager {
-    constructor(client: BotClient) {
+    constructor(client: Client) {
         super(client, Guild)
     }
 }

@@ -1,19 +1,19 @@
 import { GuildManager } from "../managers/GuildManager"
 import { ShardlientUtil } from "../sharding/ShardClientutils"
-import { BaseBotClient, BotClientOptions } from "./BaseClient"
+import { BaseClient, ClientOptions } from "./BaseClient"
 import { ClientUser } from "../structures/ClientUSer"
 import { WebSocketManager } from "./webcoket/WebsocketManager"
 
-export class BotClient extends BaseBotClient {
+export class Client extends BaseClient {
     public ready: Boolean = false
-    public readonly options: BotClientOptions
+    public readonly options: ClientOptions
     public user: ClientUser | null
     public ws: WebSocketManager
     private env: any
     public shard: any
     public guilds: GuildManager
 
-    constructor(options: BotClientOptions = {}) {
+    constructor(options: ClientOptions = {}) {
         super();
 
         this.env = process.env
@@ -23,9 +23,16 @@ export class BotClient extends BaseBotClient {
         this.user = null
         this.guilds = new GuildManager(this)
     }
+
+    /**
+     * Logs the Client in, with a websocket connection to the Discord GAteway
+     * @param {string} token The Token of the Bot
+     * @returns {Promise<void>} 
+     * @example client.login('bot_token')
+     */
     async login(token?: string): Promise<void> {
-        if (!token ?? !this.options.token) throw new Error(`Please provide a token`)
-        if (!this.options.token) this.options.token = token
-        this.ws.connect(token)
+        const t = token ?? this.options.token ?? process.env.DISCORD_BOT_TOKEN
+        if (!t) throw new Error("PLease provide a token")
+        this.ws.connect(t)
     }
 }

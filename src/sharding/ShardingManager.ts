@@ -59,7 +59,8 @@ export class ShardingManager extends EventEmitter {
     async respawnAll(shardDelay = 5000, respawnDelay = 500, spawnTimeout: number) {
         let s = 0
         for (const shard of this.shards.values()) {
-            const p = [shard.respawn(respawnDelay, spawnTimeout)]
+            const p = []
+            p.push(shard.respawn(respawnDelay, spawnTimeout))
             if (++s < this.shards.size && shardDelay > 0) p.push(util.delayFor(shardDelay))
             await Promise.all(p);
         }
