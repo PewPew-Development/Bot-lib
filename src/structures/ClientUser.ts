@@ -9,10 +9,12 @@ export class ClientUser {
     public avatar: string;
     public flags: number;
     public MfaEnabled: boolean;
+    private client: Client
 
     constructor(client: Client, data: any) {
         this.id = data.user.id
         this.username = data.user.username
+        this.client = client
         this.tag = `${this.username}#${data.user.discriminator}`
         this.discriminator = data.user.discriminator
         this.bot = data.user.bot

@@ -44,7 +44,7 @@ export class WebSocketManager extends EventEmitter {
             timer: null,
         }
     }
-    debug(message: string, shard: number = this.client.shard.id) {
+    debug(message: string, shard: number = 0) {
         this.client.emit(Events.DEBUG, `[Ws => ${shard ? `Shard #${shard}` : 'Manager'}] ${message}`)
     }
 
@@ -133,7 +133,7 @@ export class WebSocketManager extends EventEmitter {
         this.seq = payload.s
         try {
             const { default: module } = await import(`./handlers/${payload.t}`)
-            module(this.client, payload, { id: Number(this.client.shard.id) })
+            module(this.client, payload, { id: Number(0) })
         } catch (e) {
             this.debug(`[Event Not Found] ${payload.t} was not found in the handlers file!`)
         }
@@ -151,7 +151,7 @@ export class WebSocketManager extends EventEmitter {
                     "$browser": "bot-lib",
                     "$device": "bot-lib"
                 },
-                "shard": [Number(this.client.shard.id), Number(this.client.shard.shardCount)]
+                "shard": [Number(0), Number(1)]
             }
         })
     }
