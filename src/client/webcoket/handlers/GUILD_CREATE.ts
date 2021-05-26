@@ -1,8 +1,7 @@
-import { Shard } from "../../../sharding/Shard";
 import { Client } from "../../Client";
 import { Payload, Events, WSstatus } from "../../../Utils/Constants"
 
-export default function (client: Client, data: Payload, shard: Shard) {
+export default function (client: Client, data: Payload, shard: any) {
     /* let guild = client.guilds.cache.get(data.d.id)
      if (guild) {
          if (!guild.available && !data.d.unavailable) {
