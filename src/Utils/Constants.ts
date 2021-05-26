@@ -1,15 +1,17 @@
-export const WebsocketEvent = {
-    DISPATCH: 0,
-    Heartbeat: 1,
-    Identify: 2,
-    Presence_Update: 3,
-    Voice_State_Update: 4,
-    Resume: 6,
-    Reconnect: 7,
-    Request_Guild_Members: 8,
-    Invalid_Session: 9,
-    Hello: 10,
-    Heartbeat_ACK: 11,
+export enum WsOPCodes {
+    EVENT = 0,
+    HEARTBEAT = 1,
+    IDENTIFY = 2,
+    STATUS_UPDATE = 3,
+    VOICE_STATE_UPDATE = 4,
+    VOICE_STATE_PING = 5,
+    RESUME = 6,
+    REQUEST_GUILD_MEMBERS = 8,
+    INVALID_SESSION = 9,
+    HELLO = 10,
+    ACK = 11,
+    GUILD_SYNC = 12,
+    CALL_SYNC = 13
 }
 
 export enum WSstatus {

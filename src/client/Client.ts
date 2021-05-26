@@ -1,6 +1,6 @@
 import { BaseClient, ClientOptions } from "./BaseClient"
 import { ClientUser } from "../structures/ClientUSer"
-import { WebSocketManager } from "./webcoket/WebsocketManager"
+import { WebSocketManager } from "./websocket/WebsocketManager"
 
 export class Client extends BaseClient {
     public ready: Boolean = false
@@ -8,6 +8,7 @@ export class Client extends BaseClient {
     public user: ClientUser | null
     public ws: WebSocketManager
     private env: any
+    public token: string
 
     constructor(options: ClientOptions = {}) {
         super();
@@ -25,8 +26,9 @@ export class Client extends BaseClient {
      * @example client.login('bot_token')
      */
     async login(token?: string): Promise<void> {
-        const t = token ?? this.options.token ?? process.env.DISCORD_BOT_TOKEN
-        if (!t) throw new Error("PLease provide a token")
-        this.ws.connect(t)
+        let t = this.options.token
+        if (!t) t = this.options.token = token
+        if (!t) throw new Error("Please provide a token")
+        this.ws.connect()
     }
 }

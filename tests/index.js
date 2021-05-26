@@ -1,17 +1,12 @@
-const { ShardingManager, Shard } = require('../dist/index')
-const m = new ShardingManager('./tests/ee.js', {
-    token: "token",
-    shardCount: 2,
+const { Client } = require('../dist/index')
+const client = new Client()
+
+client.on('debug', (d) => console.log(d))
+client.on('error', (e) => console.log(e))
+client.on('ready', () => {
+    //console.log(`The Client is ready!`, client.user)
+    //console.log(client.guilds)
 })
 
-m.on('shardCreate', (s = new Shard()) => {
-    console.log(`New Shard: #${s.id}`)
-    s.on('spawn', (p) => {
-        console.log(`Shard: #${s.id} was spawned`)
-    })
-    s.on('ready', () => console.log(`Shard #${s.id} is now ready!`))
-})
 
-m.spawn(5).catch((e) => console.log(e))
-m.respawnAll()
-//client.on('debug', (d) => console.log(d))
+client.login("ODQ2ODExMjM5NDA5NTE2NTk1.YK08bA.MFNBSc2YalAlL3mzabdq2N4XRcI")
